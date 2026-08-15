@@ -17,4 +17,4 @@ npm run dev
 
 ## Replacing the founder placeholder
 
-The temporary founder block is in `src/App.tsx` under `portrait-placeholder`. Replace it with an `img` element when Salita's approved portrait is available.
+The temporary founder block is in `src/App.tsx` under `portrait-placeholder`. Replace it with an `img` element when Salitaa's approved portrait is available.
