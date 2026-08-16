@@ -1,0 +1,2 @@
+TURNSTILE_SECRET=your_turnstile_secret_key
+TURNSTILE_HOSTNAMES=localhost,127.0.0.1

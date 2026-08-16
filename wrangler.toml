@@ -1,0 +1,7 @@
+name = "aaditi-yogalaya"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+[vars]
+# Local dev hostnames for Turnstile siteverify (production set in Cloudflare Pages dashboard)
+TURNSTILE_HOSTNAMES = "localhost,127.0.0.1"
