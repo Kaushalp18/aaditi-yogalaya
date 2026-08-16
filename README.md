@@ -76,10 +76,39 @@ If the widget shows **"Unable to connect"**:
 ## Deploy on Cloudflare Pages
 
 1. Connect the repo in [Cloudflare Pages](https://pages.cloudflare.com/)
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Add the three environment variables above
-5. Deploy — `functions/` routes deploy automatically
+2. Configure build settings:
+
+   | Setting | Value |
+   |---|---|
+   | Build command | `npm run build` |
+   | Build output directory | `dist` |
+   | **Deploy command** | `npm run deploy` |
+
+   Use `npm run deploy` — **not** `npx wrangler deploy`. The deploy script runs `wrangler pages deploy`, which is the correct command for Pages (static `dist/` + `functions/` API routes).
+
+3. Add environment variables (Settings → Environment variables):
+
+   | Variable | Type |
+   |---|---|
+   | `VITE_TURNSTILE_SITE_KEY` | Plain text |
+   | `TURNSTILE_SECRET` | Encrypted |
+   | `TURNSTILE_HOSTNAMES` | Plain text (your `*.pages.dev` domain) |
+
+4. If wrangler asks for credentials during deploy, add these as build secrets (same env vars screen):
+
+   | Variable | Where to get it |
+   |---|---|
+   | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → Workers & Pages → right sidebar |
+   | `CLOUDFLARE_API_TOKEN` | [API Tokens](https://dash.cloudflare.com/profile/api-tokens) with **Cloudflare Pages — Edit** permission |
+
+5. Save and redeploy.
+
+### Wrong vs right deploy command
+
+| Wrong | Right |
+|---|---|
+| `npx wrangler deploy` | `npm run deploy` |
+| Workers deploy | Pages deploy (`wrangler pages deploy dist`) |
 
 ## Forms
 

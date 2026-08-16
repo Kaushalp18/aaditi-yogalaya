@@ -7,6 +7,8 @@
     "dev": "vite",
     "dev:full": "npm run build && wrangler pages dev dist --ip localhost --port 8788",
     "build": "tsc -b && vite build",
+    "deploy": "wrangler pages deploy dist --project-name=aaditi-yogalaya",
+    "pages:deploy": "npm run deploy",
     "preview": "vite preview"
   },
   "dependencies": {
