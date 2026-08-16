@@ -94,12 +94,31 @@ If the widget shows **"Unable to connect"**:
    | `TURNSTILE_SECRET` | Encrypted |
    | `TURNSTILE_HOSTNAMES` | Plain text (your `*.pages.dev` domain) |
 
-4. If wrangler asks for credentials during deploy, add these as build secrets (same env vars screen):
+4. **Fix authentication error (code 10000)** — required for `npm run deploy`:
 
-   | Variable | Where to get it |
+   **Step A: Check for a bad token**
+   - In your project → **Settings** → **Environment variables** (build variables section)
+   - If `CLOUDFLARE_API_TOKEN` is set with a token that lacks Pages permissions, **delete it** or replace it (see Step B)
+   - The Workers Builds default token often cannot call `wrangler pages deploy`
+
+   **Step B: Create a token with Pages access**
+   1. Go to [API Tokens](https://dash.cloudflare.com/profile/api-tokens) → **Create Token** → **Create Custom Token**
+   2. Add permissions:
+      - **Account** → **Cloudflare Pages** → **Edit**
+      - **Account** → **Account Settings** → **Read**
+   3. Account resources: **Include** → your account (`5e071c210a491f85acb921864f204fb7`)
+   4. Create token and copy it
+
+   **Step C: Add build variables** (Settings → Environment variables → **Build** variables, not runtime):
+
+   | Variable | Value |
    |---|---|
-   | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → Workers & Pages → right sidebar |
-   | `CLOUDFLARE_API_TOKEN` | [API Tokens](https://dash.cloudflare.com/profile/api-tokens) with **Cloudflare Pages — Edit** permission |
+   | `CLOUDFLARE_API_TOKEN` | the token from Step B (encrypted) |
+   | `CLOUDFLARE_ACCOUNT_ID` | `5e071c210a491f85acb921864f204fb7` |
+
+   **Step D: Verify project name**
+   - In **Workers & Pages**, confirm your Pages project is named exactly `aaditi-yogalaya`
+   - If the name differs, update `--project-name=` in `package.json` → `deploy` script
 
 5. Save and redeploy.
 
