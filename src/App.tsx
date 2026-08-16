@@ -1,5 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react'
 import Turnstile, { type TurnstileHandle } from './Turnstile'
+import { postForm } from './api'
 import { ArrowRight, CalendarDays, Check, Clock3, Heart, Leaf, Mail, MapPin, Menu, MessageCircle, Phone, Send, Star, Users, X } from 'lucide-react'
 
 const phone = '9136312571'
@@ -94,12 +95,7 @@ export default function App() {
 
     setEnquiryStatus('submitting')
     try {
-      const response = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, turnstileToken: enquiryToken }),
-      })
-      const result = (await response.json()) as { ok: boolean; error?: string }
+      const result = await postForm('/api/enquiry', { ...data, turnstileToken: enquiryToken })
       if (!result.ok) throw new Error(result.error ?? 'Unable to submit enquiry.')
       setEnquiryStatus('success')
       setEnquiryMessage('Thank you! Your enquiry has been submitted.')
@@ -129,12 +125,12 @@ export default function App() {
 
     setReviewStatus('submitting')
     try {
-      const response = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: data.name, rating: data.rating, feedback: data.feedback, turnstileToken: reviewToken }),
+      const result = await postForm('/api/feedback', {
+        name: data.name,
+        rating: data.rating,
+        feedback: data.feedback,
+        turnstileToken: reviewToken,
       })
-      const result = (await response.json()) as { ok: boolean; error?: string }
       if (!result.ok) throw new Error(result.error ?? 'Unable to submit feedback.')
       setReviewStatus('success')
       setReviewMessage('Thank you! Your feedback has been submitted.')
