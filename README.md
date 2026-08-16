@@ -6,16 +6,16 @@ A mobile-first single-page site for Aaditi Yogalaya, built with React, TypeScrip
 
 ```bash
 npm install
-npm run dev
-```
-
-`npm run dev` serves the UI only. To test form submissions locally (including `/api/*` routes):
-
-```bash
 npm run dev:full
 ```
 
-This runs `netlify dev` — Vite on port 5173 with API functions proxied at **http://localhost:8888**.
+`npm install` installs `netlify-cli` locally — **do not** install it globally. This project includes a `.npmrc` that works around certificate errors (`UNABLE_TO_VERIFY_LEAF_SIGNATURE`) on some networks.
+
+`npm run dev` serves the UI only. To test form submissions locally (including `/api/*` routes), use `npm run dev:full` instead.
+
+This runs `cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 dotenv -e .env -- netlify dev --offline` so function secrets load from `.env` and outbound HTTPS (Turnstile siteverify, Google Forms) works on networks with SSL inspection. API is at **http://localhost:8888**; with the Vite proxy, **http://localhost:5173** also works while `dev:full` is running.
+
+Ensure all three variables below are in `.env` (not only `.dev.vars`) so `netlify dev` can load them.
 
 ## Environment variables
 
@@ -27,7 +27,7 @@ This runs `netlify dev` — Vite on port 5173 with API functions proxied at **ht
 
 ### Local setup
 
-Copy `.env.example` to `.env` and fill in your values:
+Copy `.env.example` to `.env` and fill in your values. **All three variables must be in `.env`** — `netlify dev` does not read `.dev.vars` (that file was for Cloudflare Pages).
 
 ```
 VITE_TURNSTILE_SITE_KEY=your_turnstile_site_key

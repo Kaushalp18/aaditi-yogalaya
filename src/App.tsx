@@ -193,7 +193,7 @@ export default function App() {
               <select name="format" defaultValue="">
                 <option value="" disabled>Select a format</option>
                 <option>Online</option>
-                <option>In-person, Navi Mumbai</option>
+                <option value="In-person">In-person, Navi Mumbai</option>
                 <option>Either is fine</option>
               </select>
             </label>

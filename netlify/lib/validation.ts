@@ -5,7 +5,7 @@ const PROGRAM_OPTIONS = [
   'Personal Sessions',
 ] as const
 
-const FORMAT_OPTIONS = ['Online', 'In-person, Navi Mumbai', 'Either is fine'] as const
+const FORMAT_OPTIONS = ['Online', 'In-person', 'Either is fine'] as const
 
 export function validateEnquiry(body: unknown): { ok: true; data: EnquiryData } | { ok: false; error: string } {
   if (!body || typeof body !== 'object') return { ok: false, error: 'Invalid request body.' }

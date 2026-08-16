@@ -11,14 +11,18 @@ export async function submitGoogleForm(formId: string, entries: Record<string, s
     }
   }
 
-  const response = await fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString(),
-    redirect: 'manual',
-  })
+  try {
+    const response = await fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+      redirect: 'manual',
+    })
 
-  return response.status === 200 || response.status === 302
+    return response.status === 200 || response.status === 302
+  } catch {
+    return false
+  }
 }
 
 export function submitEnquiryForm(data: {
