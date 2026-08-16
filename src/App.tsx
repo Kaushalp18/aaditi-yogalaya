@@ -7,7 +7,7 @@ const phone = '9136312571'
 const email = 'salitasbelose@gmail.com'
 const whatsapp = (message = '') => `https://wa.me/91${phone}?text=${encodeURIComponent(message)}`
 const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? ''
-const turnstileLoadError = 'Captcha could not load. In Cloudflare Turnstile → your widget → Settings, add both localhost and 127.0.0.1 as hostnames. Then open http://localhost:8788 (not 127.0.0.1).'
+const turnstileLoadError = 'Captcha could not load. In Cloudflare Turnstile → your widget → Settings, add your site hostname. For local testing use npm run dev:full and open http://localhost:8888.'
 
 const programOptions = [
   'Regular Yoga',

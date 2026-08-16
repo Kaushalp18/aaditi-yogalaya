@@ -5,10 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:full": "npm run build && wrangler pages dev dist --ip localhost --port 8788",
+    "dev:full": "netlify dev",
     "build": "tsc -b && vite build",
-    "deploy": "wrangler pages deploy --project-name=aaditi-yogalaya --commit-dirty=true",
-    "pages:deploy": "npm run deploy",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -20,8 +18,9 @@
     "vite": "latest"
   },
   "devDependencies": {
+    "@netlify/functions": "^3.1.10",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "wrangler": "^4.123.0"
+    "netlify-cli": "^23.0.0"
   }
 }

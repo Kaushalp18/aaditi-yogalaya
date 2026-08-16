@@ -10,7 +10,7 @@ export async function postForm(path: string, body: unknown): Promise<{ ok: boole
     if (response.status === 404) {
       return {
         ok: false,
-        error: 'Form API not found. If testing locally, use npm run dev:full (not npm run dev).',
+        error: 'Form API not found. If testing locally, run npm run dev:full (Netlify dev).',
       }
     }
     return { ok: false, error: `Server returned an empty response (${response.status}). Please try again later.` }
